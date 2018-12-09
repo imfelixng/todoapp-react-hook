@@ -1,7 +1,9 @@
-import React, {memo} from 'react'
+import React, {memo, useContext} from 'react'
 import {List, Paper} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import TodoListItem from './TodoListItem';
+
+import TodoContext from '../contexts/todo-context';
 
 const styles = theme => ({
     wrapperPaper: {
@@ -12,22 +14,25 @@ const styles = theme => ({
     }
 });
 
+
+
 const TodoList = (props) => {
     const {classes} = props;
+    const {todos, checkTodo, removeTodo} = useContext(TodoContext);
   return (
     <React.Fragment>
       {
-        props.items && props.items.length > 0 &&
+        todos && todos.length > 0 &&
         <Paper className = {classes.wrapperPaper}>
             <List className = {classes.listTodo}>
                 {
-                    props.items && props.items.map((todo, index) => (
+                    todos && todos.map((todo, index) => (
                         <TodoListItem 
                             {...todo}
                             key = {index}
-                            divider = {index !== props.items.length - 1}
-                            onButtonClick = {() => props.onItemRemove(index)}
-                            onCheckBoxToggle = {() => props.onItemCheck(index)}
+                            divider = {index !== todos.length - 1}
+                            onButtonClick = {() => removeTodo(index)}
+                            onCheckBoxToggle = {() => checkTodo(index)}
                         />
                     ))
                 }

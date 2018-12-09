@@ -9,6 +9,7 @@ export const useInputValue = (initValue = "") => {
         clearInput: () => setInputValue(""),
         keyInput: (e, cb) => {
             if(e.which === 13 || e.keyCode === 13) {
+                console.log(initValue);
                 cb(inputValue);
                 return true;
             }
